@@ -88,8 +88,6 @@ Routes
 
 •	POST /api/routes - Add a new route
 
-•	PUT /api/routes/{id} - Update a route
-
 •	DELETE /api/routes/{id} - Delete a route
 
 <br>
