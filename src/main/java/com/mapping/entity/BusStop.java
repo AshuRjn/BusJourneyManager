@@ -19,10 +19,11 @@ public class BusStop {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "order_id", nullable = false)
-    private int orderId;
+    @Column(name = "route", nullable = false)
+    private String route;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "bus_id")
     private Bus bus;
 

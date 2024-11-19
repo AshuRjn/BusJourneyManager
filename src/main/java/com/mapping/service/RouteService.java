@@ -9,6 +9,7 @@ import com.mapping.repository.StopRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -25,8 +26,8 @@ public class RouteService {
         this.busRepository = busRepository;
     }
 
-    public BusStop addRoute(Long busId, Long stopId, Long orderId) {
-
+    public BusStop addRoute(Long busId, Long stopId, BusStop busStop) {
+        // Fetch the Bus and Stop from repositories
         Optional<Bus> busOpt = busRepository.findById(busId);
         Optional<Stop> stopOpt = stopRepository.findById(stopId);
 
@@ -34,11 +35,33 @@ public class RouteService {
             throw new IllegalArgumentException("Bus or Stop not found");
         }
 
-        BusStop busStop = new BusStop();
+        // Set bus and stop entities
         busStop.setBus(busOpt.get());
         busStop.setStop(stopOpt.get());
-        busStop.setOrderId(orderId.intValue());
 
+        // Use the route name provided in the JSON
+        String routeName = busStop.getRoute(); // Already set from the JSON input
+        if (routeName == null || routeName.isEmpty()) {
+            throw new IllegalArgumentException("Route name is required");
+        }
+        busStop.setRoute(routeName);
+
+        // Save and return the updated BusStop
         return busStopRepository.save(busStop);
+    }
+
+
+    public List<BusStop> getAllRoute() {
+        List<BusStop> allRoute = busStopRepository.findAll();
+        return allRoute;
+    }
+
+    public boolean deleteRoute(Long id) {
+        if (busStopRepository.existsById(id)){
+            busStopRepository.deleteById(id);
+            return true;
+        }else {
+            return false;
+        }
     }
 }
