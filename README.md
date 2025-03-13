@@ -50,7 +50,7 @@ Prerequisites
 
 Installation
 
-1.	Clone the repository:->git clone https://github.com/yourusername/BusBookingSystemSpringBoot.git
+1.	Clone the repository:->git clone https://github.com/AshuRjn/BusBookingSystemSpringBoot.git
    
 3.	Configure the database: Update the application.properties file with your database connection details.
    
